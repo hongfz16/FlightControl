@@ -13,6 +13,26 @@ extern struct SAcc stcAcc;
 extern struct SGyro	stcGyro;
 extern struct SAngle stcAngle;
 
+extern u8 nrfbuffer[268];
+
 #define GETACC(x) (stcAcc.a[(x)]) //accelerator
 #define GETGYRO(x) (stcGyro.w[(x)]) //angel speed
 #define GETANGLE(x) (stcAngle.Angle[(x)]) //angle
+
+typedef struct
+{
+	float motor1;
+	float motor2;
+	float motor3;
+	float motor4;
+} motor;
+
+u8 getifrun(void);
+
+void readData(void);
+
+void init(void);
+
+void Control(void);
+
+extern u8 Rx[32];
