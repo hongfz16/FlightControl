@@ -102,6 +102,13 @@ float PID(pid* p)
 	if(shell_out<=-300)
 		shell_out=-300;
 	return shell_out;
+	
+	core_out/=5;
+	if(core_out>=300)
+		core_out=300;
+	if(core_out<=-300)
+		core_out=-300;
+	//return core_out;
 }
 
 //kp > kd      kp:kd = 10:1
@@ -155,36 +162,36 @@ void init()
 	Pitch_PID.speed_metric=1;
 	Pitch_PID.shell_kp=0.066;//0.064;
 	Pitch_PID.shell_ki=0;//0.001;
-	Pitch_PID.shell_kd=0.238;//0.235;//0.23;;
+	Pitch_PID.shell_kd=0.238;//0.238;//0.235;//0.23;;
 	Pitch_PID.core_kp=0.9;
-	Pitch_PID.core_kd=0.1;
+	Pitch_PID.core_kd=0.1;//0.03;
 	
 	Roll_PID.speed_metric=1;
 	Roll_PID.shell_kp=0.066;//0.064;
 	Roll_PID.shell_ki=0;//0.001;
-	Roll_PID.shell_kd=-0.238;//-0.235;//-0.23;;
-	Roll_PID.core_kp=0.9;
-	Roll_PID.core_kd=0.1;
+	Roll_PID.shell_kd=-0.238;//-0.238;//-0.235;//-0.23;;
+	Roll_PID.core_kp=-0.9;
+	Roll_PID.core_kd=0.1;//0.03;
 	
-	Yaw_PID.shell_kp=10;
+	Yaw_PID.shell_kp=-5;
 	Yaw_PID.shell_ki=0;
-	Yaw_PID.shell_kd=1;
+	Yaw_PID.shell_kd=0;
 	
 	//104b
 }
 
 void updataData()
 {
-	Pitch_PID.rc = rcPitch-2048;
+	Pitch_PID.rc = rcPitch-2077;
 	Yaw_PID.rc = rcYaw-2105;//-2048;
-	Roll_PID.rc = rcRoll-2048;
+	Roll_PID.rc = rcRoll-2080;
 	
-	Pitch_PID.state = GETANGLE(IX);
-	Yaw_PID.state = GETANGLE(IZ);
-	Roll_PID.state = GETANGLE(IY);
+	Pitch_PID.state = GETANGLE(IX);//-275;//-460;
+	Yaw_PID.state = GETANGLE(IZ) + baseAngle.Angle[IZ];
+	Roll_PID.state = GETANGLE(IY);//-290;
 	
 	Pitch_PID.speed = GETGYRO(IX);
-	Yaw_PID.speed = GETGYRO(IZ);
+	Yaw_PID.speed = GETGYRO(IZ) + baseGyro.w[IZ];
 	Roll_PID.speed = GETGYRO(IY);
 }
 

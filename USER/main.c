@@ -42,6 +42,11 @@ motor mo;
 
 u8 Rx[32];
 
+struct SAcc baseAcc;
+struct SGyro baseGyro;
+struct SAngle baseAngle;
+
+
 
 //u8 GyoData[128];
 //u8 nrfobuff[128];
@@ -145,32 +150,61 @@ int main(void)
 	
 	
 	NRF24L01_RX_Mode();
-//	NRF24L01_RX_Mode();
 //	NRF24L01_TX_Mode();
-//	START=1;
-  while(1)
+	u8 checkFlag=0;
+	u8 cnt=0;
+	u8 cnter=0;
+	
+	baseAcc.a[IX]=0;
+	baseAcc.a[IY]=0;
+	baseAcc.a[IZ]=0;
+				
+	baseGyro.w[IX]=0;
+	baseGyro.w[IY]=0;
+	baseGyro.w[IZ]=0;
+
+	baseAngle.Angle[IX]=0;
+	baseAngle.Angle[IY]=0;
+	baseAngle.Angle[IZ]=0;
+				
+	
+	while(!checkFlag)
 	{
-		//tt=2;
-//		NRF24L01_TxPacket(GyoData);
-//		ToGyoData(GyoData,&stcAcc,&stcGyro,&stcAngle);
-//		GyoData[30]=stcAngle.Angle[1]
-//		GyoData[30]=23;
-//		NRF24L01_TxPacket(GyoData);
-//	NRF24L01_TxPacket(GyoData);
-//		NRF24L01_RxPacket(Rx);
-		//readData();
-		//Control( );
-//		ToGyoData(nrfbuffer,&stcAcc,&stcGyro,&stcAngle);
-//		NRF24L01_RxPacket(nrfbuffer);
-		
-		//tt=Rx[20];
-		//if(tt!=-1)
-		//	break;
-		
-		//TIM3->CCR4=mo.motor1*tt;
-		//TIM2->CCR4=mo.motor2*tt;
-		//TIM3->CCR1=mo.motor3*tt;
-		//TIM3->CCR3=mo.motor4*tt;	
+		if(tickFlag)
+		{
+			if(cnter)
+			{
+				baseAcc.a[IX]+=(stcAcc.a[IX]/cnt);
+				baseAcc.a[IY]+=(stcAcc.a[IY]/cnt);
+				baseAcc.a[IZ]+=(stcAcc.a[IZ]/cnt);
+				
+				baseGyro.w[IX]+=(stcGyro.w[IX]/cnt);
+				baseGyro.w[IY]+=(stcGyro.w[IY]/cnt);
+				baseGyro.w[IZ]+=(stcGyro.w[IZ]/cnt);
+
+				baseAngle.Angle[IX]+=(stcAngle.Angle[IX]/cnt);
+				baseAngle.Angle[IY]+=(stcAngle.Angle[IY]/cnt);
+				baseAngle.Angle[IZ]+=(stcAngle.Angle[IZ]/cnt);
+				
+				--cnter;
+				if(cnter==0) checkFlag=1;
+			}
+			else
+			{
+				if(NRF24L01_RxPacket(Rx)) continue;
+				if(Rx[21])
+				{
+					cnt=cnter=50;
+				}
+			}	
+	
+			tickFlag=0;
+		}
+	}
+	
+
+	while(1)
+	{
 		if(tickFlag)
 		{
 			Control();

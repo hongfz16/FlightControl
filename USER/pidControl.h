@@ -9,15 +9,19 @@
 #define IY (1)
 #define IZ (2)
 
+extern struct SAcc baseAcc;
+extern struct SGyro baseGyro;
+extern struct SAngle baseAngle;
+
 extern struct SAcc stcAcc;
 extern struct SGyro	stcGyro;
 extern struct SAngle stcAngle;
 
 extern u8 nrfbuffer[268];
 
-#define GETACC(x) (stcAcc.a[(x)]) //accelerator
-#define GETGYRO(x) (stcGyro.w[(x)]) //angel speed
-#define GETANGLE(x) (stcAngle.Angle[(x)]) //angle
+#define GETACC(x) (stcAcc.a[(x)]-baseAcc.a[(x)]) //accelerator
+#define GETGYRO(x) (stcGyro.w[(x)]-baseGyro.w[(x)]) //angel speed
+#define GETANGLE(x) (stcAngle.Angle[(x)]-baseAngle.Angle[(x)]) //angle
 
 typedef struct
 {

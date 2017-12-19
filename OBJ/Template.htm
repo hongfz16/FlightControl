@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Dec 18 23:09:26 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Dec 19 15:41:30 2017
 <BR><P>
 <H3>Maximum Stack Usage =        184 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -621,6 +621,7 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_Read_Buf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readData
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[71]"></a>NRF24L01_Write_Buf</STRONG> (Thumb, 56 bytes, Stack size 24 bytes, 24l01.o(i.NRF24L01_Write_Buf))
@@ -974,11 +975,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readData
 </UL>
 
-<P><STRONG><a name="[9c]"></a>init</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, pidcontrol.o(i.init))
+<P><STRONG><a name="[9c]"></a>init</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, pidcontrol.o(i.init))
 <BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 282 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 562 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = main &rArr; Control &rArr; getMotor &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
@@ -987,6 +988,7 @@ Global Symbols
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_PWM_Init
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_PWM_Init
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_RxPacket
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_RX_Mode
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_Init
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_Check
@@ -998,13 +1000,13 @@ Global Symbols
 <P><STRONG><a name="[62]"></a>readData</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, pidcontrol.o(i.readData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = readData &rArr; NRF24L01_RxPacket &rArr; NRF24L01_Read_Buf &rArr; SPI2_ReadWriteByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_RxPacket
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getRcData
+<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getRcData
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_RxPacket
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control
 </UL>
 
-<P><STRONG><a name="[63]"></a>updataData</STRONG> (Thumb, 136 bytes, Stack size 8 bytes, pidcontrol.o(i.updataData))
+<P><STRONG><a name="[63]"></a>updataData</STRONG> (Thumb, 200 bytes, Stack size 8 bytes, pidcontrol.o(i.updataData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = updataData &rArr; __aeabi_i2f &rArr; _float_epilogue
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
